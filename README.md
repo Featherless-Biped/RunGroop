@@ -1,3 +1,7 @@
+# Unit Tsting Exercise
+This is an app built by [teddysmithdev](https://github.com/teddysmithdev)
+
+If you want to run the app, follow the intructions bellow:
 # RunGroops
 
 Rungroops is an online platform for runners. This platform will help you to find clubs, schedule events, and meet other runners in your area. 
