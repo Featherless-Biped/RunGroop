@@ -15,13 +15,13 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '5.0.x'  # Replace with your .NET version
-
+        dotnet-version: '6.0.x'  
+        
     - name: Restore dependencies
       run: dotnet restore YourSolution.sln  # Replace with your solution name
 
     - name: Build
-      run: dotnet build YourSolution.sln --configuration Release  # Replace with your solution name
+      run: dotnet build RunGroopWebApp.sln --configuration Release  # Replace with your solution name
 
     - name: Test
-      run: dotnet test YourTestProject/YourTestProject.csproj --configuration Release  # Replace with your test project name and path
+      run: dotnet test RunGroopWebApp.Tests/RunGroopWebApp.Tests.csproj --configuration Release  # Replace with your test project name and path
