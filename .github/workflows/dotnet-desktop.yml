@@ -1,0 +1,29 @@
+#TEST TEST TEST
+
+name: .NET Core CI/CD
+
+on:
+  push:
+    branches:  master # Adjust this to your actual branch names
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest  # You can specify another OS if needed
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'  
+        
+    - name: Restore dependencies
+      run: dotnet restore RunGroopWebApp.sln  # Replace with your solution name
+
+    - name: Build
+      run: dotnet build RunGroopWebApp.sln --configuration Release  # Replace with your solution name
+
+    - name: Test
+      run: dotnet test RunGroopWebApp.Tests/RunGroopWebApp.Tests.csproj --configuration Release  # Replace with your test project name and path
