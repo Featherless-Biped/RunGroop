@@ -1,5 +1,3 @@
-#TEST TEST TEST
-
 name: .NET Core CI/CD
 
 on:
@@ -25,5 +23,8 @@ jobs:
     - name: Build
       run: dotnet build RunGroopWebApp.sln --configuration Release  # Replace with your solution name
 
-    - name: Test
-      run: dotnet test RunGroopWebApp.Tests/RunGroopWebApp.Tests.csproj --configuration Release  # Replace with your test project name and path
+    - name: Test xUnit Tests
+      run: time dotnet test RunGroopWebApp.Tests/RunGroopWebApp.Tests.csproj --configuration Release  # Replace with your first test project name and path
+      
+    - name: Test nUnit Tests
+      run: time dotnet test RunGroopWepApp.NTests/RunGroopWepApp.NTests.csproj --configuration Release  # Replace with your second test project name and path
