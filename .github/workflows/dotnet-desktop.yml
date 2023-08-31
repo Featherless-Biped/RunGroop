@@ -23,8 +23,8 @@ jobs:
     - name: Build
       run: dotnet build RunGroopWebApp.sln --configuration Release  # Replace with your solution name
 
-    - name: Test First Folder
+    - name: Test xUnit Tests
       run: time dotnet test RunGroopWebApp.Tests/RunGroopWebApp.Tests.csproj --configuration Release  # Replace with your first test project name and path
       
-    - name: Test Second Folder
+    - name: Test nUnit Tests
       run: time dotnet test RunGroopWepApp.NTests/RunGroopWepApp.NTests.csproj --configuration Release  # Replace with your second test project name and path
