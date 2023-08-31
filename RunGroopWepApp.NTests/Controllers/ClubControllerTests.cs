@@ -10,36 +10,47 @@ using RunGroopWebApp.Interfaces;
 using RunGroopWebApp.Models;
 using RunGroopWebApp.Repository;
 
-namespace RunGroopWebApp.Tests.Controllers
+namespace RunGroopWepApp.NTests.Controllers
 {
+    [TestFixture]
     public class ClubControllerTests
     {
         private ClubController _clubController;
+        private static ClubRepository _realClubRepository;  // Make this static
         private IClubRepository _clubRepository;
         private IPhotoService _photoService;
         private IHttpContextAccessor _httpContextAccessor;
-        private ClubRepository _realClubRepository;
-
 
         private List<Club> fakeClubs;
         private Club fakeClub;
         private Address address1;
         private Address address2;
 
-        public ClubControllerTests()
+        [OneTimeSetUp]
+        public void OneTimeSetup()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .Options;
+            _realClubRepository = new ClubRepository(new ApplicationDbContext(options));
+        }
+
+
+        [SetUp]  // This will run before each test within this class
+        public void Setup()
         {
             // Dependency
             _clubRepository = A.Fake<IClubRepository>();
             _photoService = A.Fake<IPhotoService>();
             _httpContextAccessor = A.Fake<IHttpContextAccessor>();
+        
+            // SUT
+            _clubController = new ClubController(_clubRepository, _photoService);
 
             // Use a real ClubRepository object
-            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "TestDatabase")
-                .Options;
-            _realClubRepository = new ClubRepository(new ApplicationDbContext(options));
+            _clubController = new ClubController(_realClubRepository, _photoService);
 
-            // SUT
+            // Use the real ClubRepository when constructing the ClubController
             _clubController = new ClubController(_realClubRepository, _photoService);
 
             // Addresses
@@ -89,8 +100,14 @@ namespace RunGroopWebApp.Tests.Controllers
 
             fakeClub = fakeClubs[0];
         }
+        
+        [TearDown]  // This will run after each test within this class
+        public void Teardown()
+        {
+            _realClubRepository.ResetGetByIdAsyncCallCount();  // Reset the call count after each test
+        }
 
-        [Fact]
+        [Test]
         public void ClubController_Index_ReturnsSuccess()
         {
             // Arrange
@@ -102,8 +119,7 @@ namespace RunGroopWebApp.Tests.Controllers
             // Assert
             result.Should().BeOfType<Task<IActionResult>>();
         }
-
-        [Fact]
+        [Test]
         public void ClubController_GetByIdAsyncCallCount_ReturnsTrue()
         {
             // Arrange
@@ -113,11 +129,11 @@ namespace RunGroopWebApp.Tests.Controllers
             var result = _clubController.DetailClub(id, "CyclingClub");
 
             // Assert
-            var callCount = _realClubRepository.GetGetByIdAsyncCallCount();
+            var callCount = _realClubRepository.GetGetByIdAsyncCallCount();  // Notice the change here
             callCount.Should().Be(1);
         }
 
-        [Fact]
+        [Test]
         public void ClubController_GetByIdAsyncCallCount2_ReturnsTrue()
         {
             // Arrange
@@ -127,29 +143,13 @@ namespace RunGroopWebApp.Tests.Controllers
             var result = _clubController.DetailClub(id, "RunningClub");
 
             // Assert
-            var callCount = _realClubRepository.GetGetByIdAsyncCallCount();
-            callCount.Should().Be(1);
+            var callCount = _realClubRepository.GetGetByIdAsyncCallCount();  // Notice the change here
+            callCount.Should().Be(1);  // This should be 2 now, because it's the second call
         }
 
-        [Fact]
-        public void ClubController_Detail_ReturnsSuccess()
-        {
-            // Arrange
-            var id = 1;
-            A.CallTo(() => _clubRepository.GetByIdAsync(id)).Returns(fakeClub);
-
-            // Act
-            var result = _clubController.DetailClub(id, "RunningClub");
-
-            // Assert
-            result.Should().BeOfType<Task<IActionResult>>();
-        }
-
-    
-
-        [Theory]
-        [InlineData(1, "RunningClub")]
-        [InlineData(2, "CyclingClub")]
+        [Test]
+        [TestCase(1, "RunningClub")]
+        [TestCase(2, "CyclingClub")]
         public void ClubController_Detail_ReturnsSuccess_Theory(int id, string clubType)
         {
             // Arrange
@@ -164,4 +164,3 @@ namespace RunGroopWebApp.Tests.Controllers
 
     }
 }
-

@@ -3,6 +3,7 @@ using RunGroopWebApp.Data.Enum;
 using RunGroopWebApp.Helpers;
 using RunGroopWebApp.Interfaces;
 using RunGroopWebApp.Models;
+using RunGroopWebApp.Repository;
 using RunGroopWebApp.ViewModels;
 
 namespace RunGroopWebApp.Controllers
@@ -16,6 +17,13 @@ namespace RunGroopWebApp.Controllers
         {
             _clubRepository = clubRepository;
             _photoService = photoService;
+        }
+        public void ResetGetByIdAsyncCallCount()
+        {
+            if (_clubRepository is ClubRepository clubRepo)
+            {
+                clubRepo.ResetGetByIdAsyncCallCount();
+            }
         }
 
         [HttpGet]

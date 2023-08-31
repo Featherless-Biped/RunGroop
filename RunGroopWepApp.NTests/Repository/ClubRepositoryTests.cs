@@ -4,14 +4,9 @@ using RunGroopWebApp.Data;
 using RunGroopWebApp.Data.Enum;
 using RunGroopWebApp.Models;
 using RunGroopWebApp.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
 
-namespace RunGroopWebApp.Tests.Repository
+
+namespace RunGroopWepApp.NTests.Repository
 {
     public class ClubRepositoryTests
     {
@@ -47,8 +42,8 @@ namespace RunGroopWebApp.Tests.Repository
             }
             return databaseContext;
         }
-        [Fact]
-        public async void ClubRepository_Add_ReturnsBool()
+        [Test]
+        public async Task ClubRepository_Add_ReturnsBool()
         {
             //Arrange
             var club = new Club()
@@ -67,17 +62,17 @@ namespace RunGroopWebApp.Tests.Repository
                 AppUserId = "User1"
             };
             var dbContext = await GetDbContext();
-            dbContext.Clubs.AsNoTracking();
+            //dbContext.Clubs.AsNoTracking();
             var clubRepository = new ClubRepository(dbContext);
-            
+
             //Act
             var result = clubRepository.Add(club);
 
             //Assert
             result.Should().BeTrue();
         }
-        [Fact]
-        public async void ClubRepository_GetByIdAsync_ReturnsBool()
+        [Test]
+        public async Task ClubRepository_GetByIdAsync_ReturnsBool()
         {
             //Arrange
             var id = 1;

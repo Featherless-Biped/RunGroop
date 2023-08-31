@@ -8,13 +8,22 @@ namespace RunGroopWebApp.Repository
 {
     public class ClubRepository : IClubRepository
     {
+        private int getByIdAsyncCallCount = 0;
         private readonly ApplicationDbContext _context;
 
         public ClubRepository(ApplicationDbContext context)
         {
             _context = context;
         }
+        public int GetGetByIdAsyncCallCount()
+        {
+            return getByIdAsyncCallCount;
+        }
 
+        public void ResetGetByIdAsyncCallCount()
+        {
+            getByIdAsyncCallCount = 0;
+        }
         public bool Add(Club club)
         {
             _context.Add(club);
@@ -59,6 +68,7 @@ namespace RunGroopWebApp.Repository
 
         public async Task<Club?> GetByIdAsync(int id)
         {
+            getByIdAsyncCallCount++;
             return await _context.Clubs.Include(i => i.Address).FirstOrDefaultAsync(i => i.Id == id);
         }
 

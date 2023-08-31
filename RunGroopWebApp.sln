@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RunGroopWebApp", "RunGroopW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RunGroopWebApp.Scraper", "RunGroopWebApp.Scraper\RunGroopWebApp.Scraper.csproj", "{BB5B8E0E-FDD9-4BC5-89DD-31CEC8EFFC2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunGroopWebApp.Tests", "RunGroopWebApp.Tests\RunGroopWebApp.Tests.csproj", "{5ADD2212-D7B5-4952-B033-7539A89C83E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RunGroopWebApp.Tests", "RunGroopWebApp.Tests\RunGroopWebApp.Tests.csproj", "{5ADD2212-D7B5-4952-B033-7539A89C83E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunGroopWepApp.NTests", "RunGroopWepApp.NTests\RunGroopWepApp.NTests.csproj", "{34764DB6-7701-4B0B-A28E-E17C3981274E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{5ADD2212-D7B5-4952-B033-7539A89C83E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ADD2212-D7B5-4952-B033-7539A89C83E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5ADD2212-D7B5-4952-B033-7539A89C83E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34764DB6-7701-4B0B-A28E-E17C3981274E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34764DB6-7701-4B0B-A28E-E17C3981274E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34764DB6-7701-4B0B-A28E-E17C3981274E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34764DB6-7701-4B0B-A28E-E17C3981274E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
